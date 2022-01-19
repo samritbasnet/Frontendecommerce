@@ -1,5 +1,5 @@
 export function CategoryForm(){
     return(
-        <h1>Form</h1>
+        <h1>This is categoryForm</h1>
     )
 }
