@@ -11,6 +11,12 @@ import { CategoryForm } from "../component/category/categoryform";
 import { CategoryDetail } from "../component/category/categorydetail";
 import {Product} from "../component/product/product";
 
+function AllCategory(){
+    return(
+        <p>All category</p>
+    )
+}
+
 export function AppRouting() {
   return (
     <BrowserRouter>
@@ -20,8 +26,6 @@ export function AppRouting() {
         <Route path="/contact" element={<Contact></Contact>}>
         </Route>
         <Route path="/category" element={<Category />}>
-        <Route path="/category/create" element={<CategoryForm />}></Route>
-          <Route path=":id" element={<CategoryDetail />}></Route>
         </Route>
         <Route path="/product" element={<Product></Product>}></Route>
         
