@@ -1,5 +1,5 @@
-import { NavLink,Link } from "react-router-dom";
-import{Navbar,Nav,Container,NavDropdown} from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
+import{Navbar,Nav,Container} from 'react-bootstrap';
 import './header.component.css';
 
 function getActive(active){
@@ -15,10 +15,6 @@ export function Header() {
           to="/">Home</NavLink>
         </li> 
         <li className="nav-link">
-         <NavLink className={({isActive})=>getActive(isActive)} 
-         to="/contact">Contact</NavLink>
-        </li>
-        <li className="nav-link">
           <NavLink to="/Product">Product</NavLink>
         </li>
         <li className="nav-link">
@@ -26,15 +22,8 @@ export function Header() {
           to="/category">Category</NavLink>
         </li>
        
-   
+  
         
-        <li className="nav-link">
-          <NavLink className={({isActive})=>getActive(isActive)}
-            
-            to="/about">
-            About
-          </NavLink>
-        </li>
         <li className="nav-link">
           <NavLink to="/login">Login</NavLink>
         </li>
