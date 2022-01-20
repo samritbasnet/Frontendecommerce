@@ -21,7 +21,7 @@ export class Register extends React.Component {
     };
   }
   handleChange = (e) => {
-    const { name, value, Checked } = e.target;
+    const { name, value, checked } = e.target;
     this.setState(
       (preState) => {
         return {
@@ -45,16 +45,17 @@ export class Register extends React.Component {
         break;
       case "email":
         errMsg =
-          data[fieldName] != ''
-            ? data[fieldName].includes("@")
+          data[fieldName] !== ''
+            ? (data[fieldName].includes("@")
               ? ""
-              : "Invalid Email"
+              : "Invalid Email Format")
             : "email is required ";
         break;
       case "password":
+        console.log("Field", data[fieldName].length);
         errMsg =data[fieldName] != ''
             ? (data[fieldName].length >= 8)
-              ?  "" : "Password must  be at least 8 characters"
+              ?  "" : "Password must  be at least 8 characters long"
             : "Password is required";
         break;
       case "re_password":
@@ -84,7 +85,7 @@ export class Register extends React.Component {
         }
       }
       this.setState({
-        isSubmittingForm: (error_count !=0 ? true : false)
+        isSubmittingForm: (error_count !=0) ? true : false
       
     })
   })
@@ -93,6 +94,9 @@ export class Register extends React.Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault();
+    this.setState({
+      isSubmittingForm:true
+    })
     console.log("State", this.state);
     for(let key in commonFields){    
         this.validateForm(key);
@@ -103,6 +107,9 @@ export class Register extends React.Component {
     const {error}=this.state
     return (
       <div className="container">
+      {
+                    this.state.isSubmittingForm ? 'Loading....' : ''
+                }
         <div className="row">
           <div className="col-12">
             <h4 className="text-center">Register page</h4>
@@ -121,6 +128,7 @@ export class Register extends React.Component {
                   />
                   <span className="text-danger">{error.name} </span>
                 </div>
+
               </div>
 
               <div className="row mb-3">
@@ -139,21 +147,19 @@ export class Register extends React.Component {
               </div>
 
               <div className="row mb-3">
-                <label className="col-sm-3">Password:</label>
-                <div className="col-sm-9">
-                  <input
-                    type="password"
-                    name="Password"
-                    placeholder="enter your password"
-                    className="form-control  control form-control-sm"
-                  />
-                  <span className="text-danger">{error.Password} </span>
-                </div>
-              </div>
+                                <label className="col-sm-3">Password: </label>
+                                <div className="col-sm-9">
+                                    <input onChange={this.handleChange} type="password" name="password"  placeholder="Enter your password..." className="form-control form-control-sm" />
+                                    <span className="text-danger">{error.password}</span>
+                                
+                                </div>
+                                </div>
+
               <div className="row mb-3">
                 <label className="col-sm-3">RePassword:</label>
                 <div className="col-sm-9">
                   <input
+                  onChange={this.handleChange}
                     type="password"
                     name="Re-password"
                     placeholder="Re-Enter your password"
@@ -164,40 +170,21 @@ export class Register extends React.Component {
               </div>
 
               <div className="row mb-3">
-                <label className="col-sm-3">Gender</label>
-                <div className="col-sm-9">
-                  <label htmlFor="male" className="mr-1">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value={"male"}
-                      id={"male"}
-                    />
-                    <span className="text-danger">{error.gender} </span>
-                    Male
-                  </label>
-                  <label htmlFor="female" className="mr-1">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value={"female"}
-                      id={"Female"}
-                    />
-                    Female
-                  </label>
+                                <label className="col-sm-3">Gender: </label>
+                                <div className="col-sm-9">
+                                    <label htmlFor="male" className="mr-1">
+                                        <input type="radio" name="gender" onChange={this.handleChange} value={'Male'} id="male"/> Male &nbsp;&nbsp;
+                                    </label>
+                                    <label htmlFor="female">
+                                        <input type="radio" name="gender" onChange={this.handleChange}  value={'Female'} id="female"/> Female &nbsp;&nbsp;
+                                    </label>
+                                    <label htmlFor="other">
+                                        <input type="radio" name="gender" onChange={this.handleChange}  value={'Other'} id="other"/> Other
+                                    </label>
+                                    <span className="text-danger">{error.gender}</span>
 
-                  <label htmlFor="other" className="mr-1">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value={"other"}
-                      id={"other"}
-                    />
-                    Other
-                  </label>
-                </div>
-              </div>
-
+                                </div>
+                                </div>
               <div className="row mb-3">
                 <div className="offset-sm-3 col-sm-9">
                   <button className="btn btn-success btn-sm" disabled={this.state.isSubmittingForm} type="submit">
